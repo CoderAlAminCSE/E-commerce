@@ -1,3 +1,8 @@
+@php
+$setting = DB::table('site_settings')->first();
+@endphp
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +13,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/bootstrap4/bootstrap.min.css') }}">
+<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
 <link href="{{ asset('frontend/plugins/fontawesome-free-5.0.1/css/fontawesome-all.css') }}" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" href="{{ asset('frontend/plugins/OwlCarousel2-2.2.1/owl.carousel.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('frontend/plugins/OwlCarousel2-2.2.1/owl.theme.default.css') }}">
@@ -15,6 +21,9 @@
 <link rel="stylesheet" type="text/css" href="{{ asset('frontend/plugins/slick-1.8.0/slick.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/main_styles.css') }}">
 <link rel="stylesheet" type="text/css" href="{{ asset('frontend/styles/responsive.css') }}">
+
+<link rel="stylesheet" href="sweetalert2.min.css">
+<script src="https://js.stripe.com/v3/"></script>
 
 </head>
 
@@ -32,10 +41,23 @@
 			<div class="container">
 				<div class="row">
 					<div class="col d-flex flex-row">
-						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('frontend/images/phone.png') }}" alt=""></div>+38 068 005 3570</div>
-						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('frontend/images/mail.png') }}" alt=""></div><a href="mailto:fastsales@gmail.com">fastsales@gmail.com</a></div>
+						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('frontend/images/phone.png') }}" alt=""></div>{{$setting->phone_one}}</div>
+						<div class="top_bar_contact_item"><div class="top_bar_icon"><img src="{{ asset('frontend/images/mail.png') }}" alt=""></div><a href="mailto:fastsales@gmail.com">{{$setting->email}}</a></div>
 						<div class="top_bar_content ml-auto">
+							
+						@if (Auth::check())
 							<div class="top_bar_menu">
+								<ul class="standard_dropdown top_bar_dropdown">
+									<li>
+										<a href="#" data-toggle="modal" data-target="#exampleModal">Trake Your Order<i class="fas fa-chevron-down"></i></a>
+										<ul>
+									</li>
+								</ul>
+							</div>
+						@endif
+							
+							<div class="top_bar_menu">
+								
 								<ul class="standard_dropdown top_bar_dropdown">
 									<li>
 										<a href="#">English<i class="fas fa-chevron-down"></i></a>
@@ -56,9 +78,21 @@
 								</ul>
 							</div>
 							<div class="top_bar_user">
-								<div class="user_icon"><img src="{{ asset('frontend/images/user.svg') }}" alt=""></div>
-								<div><a href="{{route('register')}}">Register</a></div>
-								<div><a href="{{route('login')}}">Sign in</a></div>
+								@guest
+								<div><a href="{{ route('login') }}"><div class="user_icon"><img src="{{ asset('public/frontend/images/user.svg')}}" alt=""></div> Register/Login</a></div>
+										 @else
+				
+									<ul class="standard_dropdown top_bar_dropdown">
+													<li>
+						   <a href="{{ route('user.home') }}"><div class="user_icon"><img src="{{ asset('frontend/images/user.svg')}}" alt=""></div> Profile<i class="fas fa-chevron-down"></i></a>
+														<ul>
+															<li><a href="#">Wishlist</a></li>
+															<li><a href="#">Checkout</a></li>
+														</ul>
+													</li>
+													
+												</ul> 
+										 @endguest
 							</div>
 						</div>
 					</div>
@@ -79,6 +113,10 @@
 						</div>
 					</div>
 
+
+					@php
+						$category = DB::table('categories')->get();
+					@endphp
 					<!-- Search -->
 					<div class="col-lg-6 col-12 order-lg-2 order-3 text-lg-left text-right">
 						<div class="header_search">
@@ -91,12 +129,9 @@
 												<span class="custom_dropdown_placeholder clc">All Categories</span>
 												<i class="fas fa-chevron-down"></i>
 												<ul class="custom_list clc">
-													<li><a class="clc" href="#">All Categories</a></li>
-													<li><a class="clc" href="#">Computers</a></li>
-													<li><a class="clc" href="#">Laptops</a></li>
-													<li><a class="clc" href="#">Cameras</a></li>
-													<li><a class="clc" href="#">Hardware</a></li>
-													<li><a class="clc" href="#">Smartphones</a></li>
+													@foreach ($category as $cat)
+														<li><a class="clc" href="#">{{$cat->category_name}}</a></li>
+													@endforeach
 												</ul>
 											</div>
 										</div>
@@ -111,11 +146,19 @@
 					<div class="col-lg-4 col-9 order-lg-3 order-2 text-lg-left text-right">
 						<div class="wishlist_cart d-flex flex-row align-items-center justify-content-end">
 							<div class="wishlist d-flex flex-row align-items-center justify-content-end">
-								<div class="wishlist_icon"><img src="{{ asset('frontend/images/heart.png') }}" alt=""></div>
-								<div class="wishlist_content">
-									<div class="wishlist_text"><a href="#">Wishlist</a></div>
-									<div class="wishlist_count">115</div>
-								</div>
+								@guest
+									
+								@else
+									@php
+										$wishlist = DB::table('wishlists')->where('user_id',Auth::id())->get();
+									@endphp
+
+									<div class="wishlist_icon"><img src="{{ asset('frontend/images/heart.png') }}" alt=""></div>
+									<div class="wishlist_content">
+										<div class="wishlist_text"><a href="{{ route('user.wishlist') }}">Wishlist</a></div>
+										<div class="wishlist_count">{{count($wishlist)}}</div>
+									</div>	
+								@endguest
 							</div>
 
 							<!-- Cart -->
@@ -123,11 +166,11 @@
 								<div class="cart_container d-flex flex-row align-items-center justify-content-end">
 									<div class="cart_icon">
 										<img src="{{ asset('frontend/images/cart.png') }}" alt="">
-										<div class="cart_count"><span>10</span></div>
+										<div class="cart_count"><span>{{ Cart::count() }}</span></div>
 									</div>
 									<div class="cart_content">
-										<div class="cart_text"><a href="#">Cart</a></div>
-										<div class="cart_price">$85</div>
+										<div class="cart_text"><a href="{{ route('show.cart') }}">Cart</a></div>
+										<div class="cart_price">${{ Cart::subtotal() }}</div>
 									</div>
 								</div>
 							</div>
@@ -153,21 +196,19 @@
 				<div class="col-lg-3 footer_col">
 					<div class="footer_column footer_contact">
 						<div class="logo_container">
-							<div class="logo"><a href="#">OneTech</a></div>
+							<div class="logo"><a href="#">{{$setting->company_name}}</a></div>
 						</div>
 						<div class="footer_title">Got Question? Call Us 24/7</div>
-						<div class="footer_phone">+38 068 005 3570</div>
+						<div class="footer_phone">{{$setting->phone_two}}</div>
 						<div class="footer_contact_text">
-							<p>17 Princess Road, London</p>
-							<p>Grester London NW18JR, UK</p>
+							<p>{{$setting->company_address}}</p>
 						</div>
 						<div class="footer_social">
 							<ul>
-								<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
-								<li><a href="#"><i class="fab fa-twitter"></i></a></li>
-								<li><a href="#"><i class="fab fa-youtube"></i></a></li>
-								<li><a href="#"><i class="fab fa-google"></i></a></li>
-								<li><a href="#"><i class="fab fa-vimeo-v"></i></a></li>
+								<li><a href="{{$setting->facebook}}" target="_blank"><i class="fab fa-facebook-f"></i></a></li>
+								<li><a href="{{$setting->twitter}}" target="_blank"><i class="fab fa-twitter"></i></a></li>
+								<li><a href="{{$setting->youtube}}" target="_blank"><i class="fab fa-youtube"></i></a></li>
+								<li><a href="{{$setting->instagram}}" target="_blank"><i class="fab fa-instagram"></i></a></li>
 							</ul>
 						</div>
 					</div>
@@ -250,6 +291,37 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 
 
 
+<!--Order Traking Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="exampleModalLabel">Your Status Code</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+	 <form method="post" action="{{ route('order.tracking') }}">
+	  @csrf
+	  <div class="modal-body">
+		  {{-- <label> Status Code</label> --}}
+		  <input type="text" name="code" required="" class="form-control" placeholder=" Enter Your Order Status Code">        
+	  </div>
+	   
+	   <button class="btn btn-info" type="submit">Track Now </button>  
+  
+	 </form>
+	
+		  
+		</div>
+		 
+	  </div>
+	</div>
+  </div>
+
+
+
 <script src="{{ asset('frontend/js/jquery-3.3.1.min.js') }}"></script>
 <script src="{{ asset('frontend/styles/bootstrap4/popper.js') }}"></script>
 <script src="{{ asset('frontend/styles/bootstrap4/bootstrap.min.js') }}"></script>
@@ -262,6 +334,53 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 <script src="{{ asset('frontend/plugins/slick-1.8.0/slick.js') }}"></script>
 <script src="{{ asset('frontend/plugins/easing/easing.js') }}"></script>
 <script src="{{ asset('frontend/js/custom.js') }}"></script>
-</body>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script src="{{ asset('frontend/js/product_custom.js')}}"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@9"></script>
+<script src="{{ asset('https://unpkg.com/sweetalert/dist/sweetalert.min.js')}}"></script>
 
+
+<script>
+	@if(Session::has('messege'))
+	  var type="{{Session::get('alert-type','info')}}"
+	  switch(type){
+		  case 'info':
+			   toastr.info("{{ Session::get('messege') }}");
+			   break;
+		  case 'success':
+			  toastr.success("{{ Session::get('messege') }}");
+			  break;
+		  case 'warning':
+			 toastr.warning("{{ Session::get('messege') }}");
+			  break;
+		  case 'error':
+			  toastr.error("{{ Session::get('messege') }}");
+			  break;
+	  }
+	@endif
+ </script> 
+
+<script>  
+	$(document).on("click", "#return", function(e){
+		e.preventDefault();
+		var link = $(this).attr("href");
+		   swal({
+			 title: "Are you Want to Return?",
+			 text: "Once Teturn, this will return your money!",
+			 icon: "warning",
+			 buttons: true,
+			 dangerMode: true,
+		   })
+		   .then((willDelete) => {
+			 if (willDelete) {
+				  window.location.href = link;
+			 } else {
+			   swal("Cancel!");
+			 }
+		   });
+	   });
+</script>
+
+
+</body>
 </html>

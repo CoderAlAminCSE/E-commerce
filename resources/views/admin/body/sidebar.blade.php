@@ -23,79 +23,92 @@
         <a href="#" class="sl-menu-link">
           <div class="sl-menu-item">
             <i class="menu-item-icon icon ion-ios-gear-outline tx-24"></i>
-            <span class="menu-item-label">Forms</span>
+            <span class="menu-item-label">Coupons</span>
             <i class="menu-item-arrow fa fa-angle-down"></i>
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
-          <li class="nav-item"><a href="form-elements.html" class="nav-link">Form Elements</a></li>
-          <li class="nav-item"><a href="form-layouts.html" class="nav-link">Form Layouts</a></li>
-          <li class="nav-item"><a href="form-validation.html" class="nav-link">Form Validation</a></li>
-          <li class="nav-item"><a href="form-wizards.html" class="nav-link">Form Wizards</a></li>
-          <li class="nav-item"><a href="form-editor-text.html" class="nav-link">Text Editor</a></li>
-        </ul>
-        <a href="#" class="sl-menu-link">
-          <div class="sl-menu-item">
-            <i class="menu-item-icon icon ion-ios-filing-outline tx-24"></i>
-            <span class="menu-item-label">UI Elements</span>
-            <i class="menu-item-arrow fa fa-angle-down"></i>
-          </div><!-- menu-item -->
-        </a><!-- sl-menu-link -->
-        <ul class="sl-menu-sub nav flex-column">
-          <li class="nav-item"><a href="accordion.html" class="nav-link">Accordion</a></li>
-          <li class="nav-item"><a href="alerts.html" class="nav-link">Alerts</a></li>
-          <li class="nav-item"><a href="buttons.html" class="nav-link">Buttons</a></li>
-          <li class="nav-item"><a href="cards.html" class="nav-link">Cards</a></li>
-          <li class="nav-item"><a href="icons.html" class="nav-link">Icons</a></li>
-          <li class="nav-item"><a href="modal.html" class="nav-link">Modal</a></li>
-          <li class="nav-item"><a href="navigation.html" class="nav-link">Navigation</a></li>
-          <li class="nav-item"><a href="pagination.html" class="nav-link">Pagination</a></li>
-          <li class="nav-item"><a href="popups.html" class="nav-link">Tooltip &amp; Popover</a></li>
-          <li class="nav-item"><a href="progress.html" class="nav-link">Progress</a></li>
-          <li class="nav-item"><a href="spinners.html" class="nav-link">Spinners</a></li>
-          <li class="nav-item"><a href="typography.html" class="nav-link">Typography</a></li>
+          <li class="nav-item"><a href="{{route('coupon.view')}}" class="nav-link">Coupon</a></li>
         </ul>
         <a href="#" class="sl-menu-link">
           <div class="sl-menu-item">
             <i class="menu-item-icon icon ion-ios-bookmarks-outline tx-20"></i>
-            <span class="menu-item-label">Tables</span>
+            <span class="menu-item-label">Products</span>
             <i class="menu-item-arrow fa fa-angle-down"></i>
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
-          <li class="nav-item"><a href="table-basic.html" class="nav-link">Basic Table</a></li>
-          <li class="nav-item"><a href="table-datatable.html" class="nav-link">Data Table</a></li>
+          <li class="nav-item"><a href="{{route('product.add')}}" class="nav-link">Add Product</a></li>
+          <li class="nav-item"><a href="{{route('product.view')}}" class="nav-link">All Product</a></li>
         </ul>
+
         <a href="#" class="sl-menu-link">
           <div class="sl-menu-item">
-            <i class="menu-item-icon icon ion-ios-navigate-outline tx-24"></i>
-            <span class="menu-item-label">Maps</span>
+            <i class="menu-item-icon icon ion-ios-bookmarks-outline tx-20"></i>
+            <span class="menu-item-label">Order</span>
             <i class="menu-item-arrow fa fa-angle-down"></i>
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
-          <li class="nav-item"><a href="map-google.html" class="nav-link">Google Maps</a></li>
-          <li class="nav-item"><a href="map-vector.html" class="nav-link">Vector Maps</a></li>
+          <li class="nav-item"><a href="{{route('admin.newOrder')}}" class="nav-link">New Order </a></li>
+          <li class="nav-item"><a href="{{route('admin.accept.payment')}}" class="nav-link">Accept Payment</a></li>
+          <li class="nav-item"><a href="{{route('admin.cancel.order')}}" class="nav-link">Cancel Order</a></li>
+          <li class="nav-item"><a href="{{route('admin.process.payment')}}" class="nav-link">Process Delivery</a></li>
+          <li class="nav-item"><a href="{{route('admin.success.payment')}}" class="nav-link">Delivery Success</a></li>
         </ul>
-        <a href="mailbox.html" class="sl-menu-link">
-          <div class="sl-menu-item">
-            <i class="menu-item-icon icon ion-ios-email-outline tx-24"></i>
-            <span class="menu-item-label">Mailbox</span>
-          </div><!-- menu-item -->
-        </a><!-- sl-menu-link -->
+        
         <a href="#" class="sl-menu-link">
           <div class="sl-menu-item">
-            <i class="menu-item-icon icon ion-ios-paper-outline tx-22"></i>
-            <span class="menu-item-label">Pages</span>
+            <i class="menu-item-icon icon ion-ios-bookmarks-outline tx-20"></i>
+            <span class="menu-item-label">Blog</span>
             <i class="menu-item-arrow fa fa-angle-down"></i>
           </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
-          <li class="nav-item"><a href="blank.html" class="nav-link">Blank Page</a></li>
-          <li class="nav-item"><a href="page-signin.html" class="nav-link">Signin Page</a></li>
-          <li class="nav-item"><a href="page-signup.html" class="nav-link">Signup Page</a></li>
-          <li class="nav-item"><a href="page-notfound.html" class="nav-link">404 Page Not Found</a></li>
+          <li class="nav-item"><a href="{{route('add.blog.categorylist')}}" class="nav-link">Blog Category</a></li>
+          <li class="nav-item"><a href="{{route('add.blogpost')}}" class="nav-link">Add Post</a></li>
+          <li class="nav-item"><a href="{{route('all.blogpost')}}" class="nav-link">Post List</a></li>
         </ul>
+
+        <a href="#" class="sl-menu-link">
+          <div class="sl-menu-item">
+            <i class="menu-item-icon icon ion-ios-bookmarks-outline tx-20"></i>
+            <span class="menu-item-label">Reports</span>
+            <i class="menu-item-arrow fa fa-angle-down"></i>
+          </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
+        <ul class="sl-menu-sub nav flex-column">
+          <li class="nav-item"><a href="{{route('today.order')}}" class="nav-link">Today Order</a></li>
+          <li class="nav-item"><a href="{{route('today.delivery')}}" class="nav-link">Today Delivery</a></li>
+          <li class="nav-item"><a href="{{route('this.month.delivery')}}" class="nav-link">This Month Delivery</a></li>
+          <li class="nav-item"><a href="{{route('search.report')}}" class="nav-link">Search</a></li>
+        </ul>
+
+        <a href="#" class="sl-menu-link">
+          <div class="sl-menu-item">
+            <i class="menu-item-icon icon ion-ios-bookmarks-outline tx-20"></i>
+            <span class="menu-item-label">Site Settings</span>
+            <i class="menu-item-arrow fa fa-angle-down"></i>
+          </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
+        <ul class="sl-menu-sub nav flex-column">
+          <li class="nav-item"><a href="{{route('admin.site.setting')}}" class="nav-link">Site Setting</a></li>
+        </ul>
+
+        <a href="#" class="sl-menu-link">
+          <div class="sl-menu-item">
+            <i class="menu-item-icon icon ion-ios-bookmarks-outline tx-20"></i>
+            <span class="menu-item-label">Return Order</span>
+            <i class="menu-item-arrow fa fa-angle-down"></i>
+          </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
+        <ul class="sl-menu-sub nav flex-column">
+          <li class="nav-item"><a href="{{route('admin.return.request')}}" class="nav-link">Return Request</a></li>
+          <li class="nav-item"><a href="{{route('admin.all.return')}}" class="nav-link">All Request</a></li>
+        </ul>
+      
+
+
       </div><!-- sl-sideleft-menu -->
 
       <br>

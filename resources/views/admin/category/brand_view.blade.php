@@ -30,7 +30,7 @@
                 <td>{{$key +1}}</td>
                 <td>{{$value->brand_name}}</td>
                 <td>
-                    <img src="{{url('upload/brands/'.$value->brand_logo)}}" alt="" style="height: 80px;height:80px">
+                    <img src="{{url('upload/brands/'.$value->brand_logo)}}" alt="" style="height: 50px;height:50px">
                 </td>
                 <td>
                     <a href="{{route('brand.edit',$value->id)}}" class="btn btn-info">Edit</a>
