@@ -106,6 +106,28 @@
           <li class="nav-item"><a href="{{route('admin.return.request')}}" class="nav-link">Return Request</a></li>
           <li class="nav-item"><a href="{{route('admin.all.return')}}" class="nav-link">All Request</a></li>
         </ul>
+
+        <a href="#" class="sl-menu-link">
+          <div class="sl-menu-item">
+            <i class="menu-item-icon icon ion-ios-bookmarks-outline tx-20"></i>
+            <span class="menu-item-label">Product Stokes</span>
+            <i class="menu-item-arrow fa fa-angle-down"></i>
+          </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
+        <ul class="sl-menu-sub nav flex-column">
+          <li class="nav-item"><a href="{{route('admin.product.stoke')}}" class="nav-link">Stoke</a></li>
+        </ul>
+
+        <a href="#" class="sl-menu-link">
+          <div class="sl-menu-item">
+            <i class="menu-item-icon icon ion-ios-bookmarks-outline tx-20"></i>
+            <span class="menu-item-label">Contact Message</span>
+            <i class="menu-item-arrow fa fa-angle-down"></i>
+          </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
+        <ul class="sl-menu-sub nav flex-column">
+          <li class="nav-item"><a href="{{route('admin.all.message')}}" class="nav-link">All Message</a></li>
+        </ul>
       
 
 

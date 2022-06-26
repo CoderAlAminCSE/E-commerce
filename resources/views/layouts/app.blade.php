@@ -84,7 +84,7 @@ $setting = DB::table('site_settings')->first();
 				
 									<ul class="standard_dropdown top_bar_dropdown">
 													<li>
-						   <a href="{{ route('user.home') }}"><div class="user_icon"><img src="{{ asset('frontend/images/user.svg')}}" alt=""></div> Profile<i class="fas fa-chevron-down"></i></a>
+						   <a href="{{ route('user.home') }}"><div class="user_icon"><img src="{{ asset('frontend/images/user.svg')}}" alt=""></div> {{Auth::user()->name}}<i class="fas fa-chevron-down"></i></a>
 														<ul>
 															<li><a href="#">Wishlist</a></li>
 															<li><a href="#">Checkout</a></li>
@@ -122,8 +122,9 @@ $setting = DB::table('site_settings')->first();
 						<div class="header_search">
 							<div class="header_search_content">
 								<div class="header_search_form_container">
-									<form action="#" class="header_search_form clearfix">
-										<input type="search" required="required" class="header_search_input" placeholder="Search for products...">
+									<form method="POST" action="{{route('product.search')}}" class="header_search_form clearfix"> 
+									@csrf
+									<input type="search" class="header_search_input" required name="search" placeholder="search product">
 										<div class="custom_dropdown">
 											<div class="custom_dropdown_list">
 												<span class="custom_dropdown_placeholder clc">All Categories</span>

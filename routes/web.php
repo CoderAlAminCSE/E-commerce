@@ -10,10 +10,13 @@ use App\Http\Controllers\admin\PostController;
 use App\Http\Controllers\admin\ProductController;
 use App\Http\Controllers\admin\ReportController;
 use App\Http\Controllers\admin\SiteController;
+use App\Http\Controllers\admin\StokeController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController as ControllersProductController;
 use App\Http\Controllers\ReturnController;
+use App\Http\Controllers\SerachController;
 use App\Http\Controllers\WishlistController;
 use Illuminate\Support\Facades\Route;
 
@@ -190,3 +193,19 @@ Route::get('request/return/{id}',[ReturnController::class,'RequestReturn']);
 Route::get('admin/return/request',[ReturnController::class,'ReturnRequest'])->name('admin.return.request');
 Route::get('admin/approve/return/{id}',[ReturnController::class,'ApprovedReturn']);
 Route::get('admin/all/return/list',[ReturnController::class,'AllReturnRequest'])->name('admin.all.return');
+
+
+
+// admin product stoke related route
+Route::get('admin/product/list',[StokeController::class,'ProductStoke'])->name('admin.product.stoke');
+
+
+
+// contact page related route
+Route::get('contact/page',[ContactController::class,'Contact'])->name('contact.page');
+Route::post('contact/form',[ContactController::class,'ContactForm'])->name('contact.form');
+Route::get('admin/all/message',[ContactController::class,'AllMessage'])->name('admin.all.message');
+
+
+//product search related route
+Route::post('user/product/search',[SerachController::class,'Search'])->name('product.search');
